@@ -1,7 +1,7 @@
 package io.github.jasonnull.dts.server.controller;
 
 import io.github.jasonnull.dts.server.controller.interceptor.PermissionInterceptor;
-import io.github.jasonnull.dts.server.core.conf.JobServerConfig;
+import io.github.jasonnull.dts.server.conf.JobServerConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;

@@ -1,6 +1,6 @@
 package io.github.jasonnull.dts.server.dao;
 
-import io.github.jasonnull.dts.server.core.model.JobLog;
+import io.github.jasonnull.dts.server.model.JobLog;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

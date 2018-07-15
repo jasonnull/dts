@@ -2,7 +2,7 @@ package io.github.jasonnull.dts.server.service;
 
 
 import io.github.jasonnull.dts.client.biz.model.ReturnT;
-import io.github.jasonnull.dts.server.core.model.JobInfo;
+import io.github.jasonnull.dts.server.model.JobInfo;
 
 import java.util.Date;
 import java.util.Map;

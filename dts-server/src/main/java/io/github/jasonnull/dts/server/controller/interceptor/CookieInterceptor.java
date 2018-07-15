@@ -1,7 +1,7 @@
 package io.github.jasonnull.dts.server.controller.interceptor;
 
-import io.github.jasonnull.dts.server.core.util.FtlUtil;
-import io.github.jasonnull.dts.server.core.util.I18nUtil;
+import io.github.jasonnull.dts.server.util.FtlUtil;
+import io.github.jasonnull.dts.server.util.I18nUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

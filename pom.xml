@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
-    <description>A lightweight distributed task scheduling framework.</description>
+    <description>distributed task scheduler</description>
 
     <modules>
         <module>dts-client</module>
@@ -58,6 +58,7 @@
                     <encoding>UTF8</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -66,6 +67,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -74,6 +76,7 @@
                     <archiveClasses>false</archiveClasses>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -84,7 +87,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <profiles>
         <profile>
@@ -140,13 +142,14 @@
                 <snapshotRepository>
                     <id>oss</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <layout>default</layout>
                 </snapshotRepository>
                 <repository>
                     <id>oss</id>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <layout>default</layout>
                 </repository>
             </distributionManagement>
         </profile>
     </profiles>
-
 </project>

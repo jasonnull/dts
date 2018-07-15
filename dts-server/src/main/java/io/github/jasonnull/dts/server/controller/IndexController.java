@@ -3,7 +3,7 @@ package io.github.jasonnull.dts.server.controller;
 import io.github.jasonnull.dts.client.biz.model.ReturnT;
 import io.github.jasonnull.dts.server.controller.annotation.PermessionLimit;
 import io.github.jasonnull.dts.server.controller.interceptor.PermissionInterceptor;
-import io.github.jasonnull.dts.server.core.util.I18nUtil;
+import io.github.jasonnull.dts.server.util.I18nUtil;
 import io.github.jasonnull.dts.server.service.JobService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

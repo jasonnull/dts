@@ -13,8 +13,6 @@
     <modules>
         <module>dts-sample-spring</module>
         <module>dts-sample-springboot</module>
-        <module>dts-sample-jfinal</module>
-        <module>dts-sample-nutz</module>
     </modules>
 
 </project>

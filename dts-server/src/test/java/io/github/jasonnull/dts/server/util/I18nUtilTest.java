@@ -1,6 +1,6 @@
 package io.github.jasonnull.dts.server.util;
 
-import io.github.jasonnull.dts.server.core.util.I18nUtil;
+import io.github.jasonnull.dts.server.util.I18nUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

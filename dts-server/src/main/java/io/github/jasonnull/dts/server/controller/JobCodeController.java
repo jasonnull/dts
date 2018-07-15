@@ -2,9 +2,9 @@ package io.github.jasonnull.dts.server.controller;
 
 import io.github.jasonnull.dts.client.biz.model.ReturnT;
 import io.github.jasonnull.dts.client.glue.GlueTypeEnum;
-import io.github.jasonnull.dts.server.core.model.JobInfo;
-import io.github.jasonnull.dts.server.core.model.JobLogGlue;
-import io.github.jasonnull.dts.server.core.util.I18nUtil;
+import io.github.jasonnull.dts.server.model.JobInfo;
+import io.github.jasonnull.dts.server.model.JobLogGlue;
+import io.github.jasonnull.dts.server.util.I18nUtil;
 import io.github.jasonnull.dts.server.dao.JobInfoDao;
 import io.github.jasonnull.dts.server.dao.JobLogGlueDao;
 import org.springframework.stereotype.Controller;

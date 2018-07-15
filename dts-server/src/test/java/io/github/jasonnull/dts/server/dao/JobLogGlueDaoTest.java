@@ -1,6 +1,6 @@
 package io.github.jasonnull.dts.server.dao;
 
-import io.github.jasonnull.dts.server.core.model.JobLogGlue;
+import io.github.jasonnull.dts.server.model.JobLogGlue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

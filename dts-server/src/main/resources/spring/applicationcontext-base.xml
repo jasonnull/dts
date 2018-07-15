@@ -8,7 +8,7 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan
-            base-package="io.github.jasonnull.dts.server.core.conf, io.github.jasonnull.dts.server.service, io.github.jasonnull.dts.server.dao"/>
+            base-package="io.github.jasonnull.dts.server.conf, io.github.jasonnull.dts.server.service, io.github.jasonnull.dts.server.dao"/>
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/template/"/>
