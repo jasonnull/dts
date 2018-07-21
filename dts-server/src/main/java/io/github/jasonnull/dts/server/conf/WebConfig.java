@@ -1,4 +1,4 @@
-package io.github.jasonnull.dts.server.config;
+package io.github.jasonnull.dts.server.conf;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import io.github.jasonnull.dts.server.schedule.JobDynamicScheduler;
@@ -33,13 +33,12 @@ public class WebConfig {
     @Qualifier(value = "dataSource")
     @Primary
     @ConfigurationProperties(prefix = "c3p0")
-    public DataSource dataSource()
-    {
+    public DataSource dataSource() {
         return DataSourceBuilder.create().type(ComboPooledDataSource.class).build();
     }
 
-    @Bean
-    public SchedulerFactoryBean quartzScheduler(DataSource dataSource){
+    @Bean("schedulerFactory")
+    public SchedulerFactoryBean schedulerFactory(DataSource dataSource) {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         Resource resource = new ClassPathResource("quartz.properties");
         schedulerFactoryBean.setConfigLocation(resource);
@@ -52,15 +51,15 @@ public class WebConfig {
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
-    public JobDynamicScheduler xxlJobDynamicScheduler(SchedulerFactoryBean quartzScheduler) {
+    public JobDynamicScheduler xxlJobDynamicScheduler(SchedulerFactoryBean schedulerFactory) {
         JobDynamicScheduler jobDynamicScheduler = new JobDynamicScheduler();
         jobDynamicScheduler.setAccessToken(accessToken);
-        jobDynamicScheduler.setScheduler(quartzScheduler.getObject());
+        jobDynamicScheduler.setScheduler(schedulerFactory.getObject());
         return jobDynamicScheduler;
     }
 
     @Bean
-    public FilterRegistrationBean filterRegist() {
+    public FilterRegistrationBean filterRegistration() {
         FilterRegistrationBean frBean = new FilterRegistrationBean();
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");

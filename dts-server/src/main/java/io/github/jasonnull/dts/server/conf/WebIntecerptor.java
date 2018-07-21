@@ -1,4 +1,4 @@
-package io.github.jasonnull.dts.server.config;
+package io.github.jasonnull.dts.server.conf;
 
 
 import io.github.jasonnull.dts.server.controller.interceptor.CookieInterceptor;

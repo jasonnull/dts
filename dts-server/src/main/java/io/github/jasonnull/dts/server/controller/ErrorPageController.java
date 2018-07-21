@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/error")
 @Slf4j
-public class BaseErrorPageController implements ErrorController {
+public class ErrorPageController implements ErrorController {
     @Override
     public String getErrorPath() {
         return "500";
