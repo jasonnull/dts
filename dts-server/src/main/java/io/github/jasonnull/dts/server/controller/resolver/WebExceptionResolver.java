@@ -4,6 +4,7 @@ import io.github.jasonnull.dts.client.biz.model.ReturnT;
 import io.github.jasonnull.dts.client.util.JacksonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -16,6 +17,7 @@ import java.io.IOException;
 /**
  * common exception resolver
  */
+@Configuration
 public class WebExceptionResolver implements HandlerExceptionResolver {
     private static transient Logger logger = LoggerFactory.getLogger(WebExceptionResolver.class);
 
