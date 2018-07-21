@@ -10,23 +10,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JobServerConfig implements InitializingBean {
     private static JobServerConfig adminConfig = null;
-    @Value("${xxl.job.mail.host}")
+    @Value("${dts.job.mail.host}")
     private String mailHost;
-    @Value("${xxl.job.mail.port}")
+    @Value("${dts.job.mail.port}")
     private String mailPort;
-    @Value("${xxl.job.mail.ssl}")
+    @Value("${dts.job.mail.ssl}")
     private boolean mailSSL;
-    @Value("${xxl.job.mail.username}")
+    @Value("${dts.job.mail.username}")
     private String mailUsername;
-    @Value("${xxl.job.mail.password}")
+    @Value("${dts.job.mail.password}")
     private String mailPassword;
-    @Value("${xxl.job.mail.sendNick}")
+    @Value("${dts.job.mail.sendNick}")
     private String mailSendNick;
-    @Value("${xxl.job.login.username}")
+    @Value("${dts.job.login.username}")
     private String loginUsername;
-    @Value("${xxl.job.login.password}")
+    @Value("${dts.job.login.password}")
     private String loginPassword;
-    @Value("${xxl.job.i18n}")
+    @Value("${dts.job.i18n}")
     private String i18n;
 
     public static JobServerConfig getAdminConfig() {

@@ -1,0 +1,64 @@
+spring:
+  freemarker:
+    settings:
+      classic_compatible: true
+      time_format: HH:mm:ss
+      datetime_format: yyyy-MM-dd HH:mm:s
+      default_encoding: UTF-8
+      template_update_delay: 0
+      output_encoding: UTF-8
+      date_format: yyyy-MM-dd
+      template_exception_handler: ignore
+      locale: zh_CN
+      number_format: 0.##########
+    cache: true
+    expose-request-attributes: true
+    prefix:
+    request-context-attribute: request
+    content-type: text/html;charset=UTF-8
+    expose-session-attributes: true
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    expose-spring-macro-helpers: true
+    enabled: true
+    order: 0
+
+server:
+  port: 8080
+
+dts:
+  job:
+    mail:
+      password: asdfzxcv
+      port: 25
+      host: smtp.163.com
+      sendNick: ã\x80\x8aä»»å\x8a¡è°\x83åº¦å¹³å\x8f°DTS-JOBã\x80\x8b
+      ssl: false
+      username: ovono802302@163.com
+    login:
+      password: 123456
+      username: admin
+    accessToken: 123456
+    db:
+      password: 123456
+      driverClass: com.mysql.jdbc.Driver
+      user: root
+      url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    i18n:
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+quartz:
+  enabled: true
+c3p0:
+  password: ${dts.job.db.password}
+  minPoolSize: 20
+  preferredTestQuery: SELECT 1
+  driverClass: ${dts.job.db.driverClass}
+  jdbcUrl: ${dts.job.db.url}
+  maxIdleTime: 60
+  acquireRetryDelay: 100
+  user: ${dts.job.db.user}
+  initialPoolSize: 20
+  maxPoolSize: 100
+  acquireRetryAttempts: 1000
