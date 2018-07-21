@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <property name="LOG_HOME" value="C:/log/base.log" />
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
@@ -7,8 +9,8 @@
         </encoder>
     </appender>
 
-    <appender name="baselog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>C:/log/base.log</File>
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>log/base.%d.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -25,5 +27,6 @@
     <root>
         <level value="info" />
         <appender-ref ref="console" />
+        <appender-ref ref="fileLog"/>
     </root>
 </configuration>
