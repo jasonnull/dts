@@ -4,7 +4,7 @@
       <#import "/common/common.macro.ftl" as netCommon>
     <@netCommon.commonStyle />
     <!-- daterangepicker -->
-    <link rel="stylesheet" href="${request.contextPath}/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="${request.contextPath}/asset/adminlte/plugins/daterangepicker/daterangepicker.css">
     <title>${I18n.admin_name}</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
@@ -139,10 +139,10 @@
 </div>
 <@netCommon.commonScript />
 <!-- daterangepicker -->
-<script src="${request.contextPath}/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="${request.contextPath}/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="${request.contextPath}/asset/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="${request.contextPath}/asset/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
 <#-- echarts -->
-<script src="${request.contextPath}/plugins/echarts/echarts.common.min.js"></script>
-<script src="${request.contextPath}/js/index.js"></script>
+<script src="${request.contextPath}/asset/plugins/echarts/echarts.common.min.js"></script>
+<script src="${request.contextPath}/asset/js/index.js"></script>
 </body>
 </html>

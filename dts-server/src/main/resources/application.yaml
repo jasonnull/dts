@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    static-path-pattern: /asset/**
+  resources:
+    static-locations: classpath:/asset/
+  profiles:
+    active: @dev.name@
+  freemarker:
+    cache: true
+    expose-request-attributes: true
+    prefix:
+    request-context-attribute: request
+    content-type: text/html;charset=UTF-8
+    expose-session-attributes: true
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    expose-spring-macro-helpers: true
+    enabled: true
+    order: 0
+    settings:
+          classic_compatible: true
+          time_format: HH:mm:ss
+          datetime_format: yyyy-MM-dd HH:mm:s
+          default_encoding: UTF-8
+          template_update_delay: 0
+          output_encoding: UTF-8
+          date_format: yyyy-MM-dd
+          template_exception_handler: ignore
+          locale: zh_CN
+          number_format: 0.##########
+  datasource:
+      type: com.mchange.v2.c3p0.ComboPooledDataSource
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+
+quartz:
+  enabled: true
+
+---
+spring:
+  profiles: jasonnull
+  datasource:
+    url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: abcd1234_

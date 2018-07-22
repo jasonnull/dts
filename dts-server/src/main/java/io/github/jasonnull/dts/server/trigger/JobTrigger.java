@@ -11,7 +11,6 @@ import io.github.jasonnull.dts.server.model.JobInfo;
 import io.github.jasonnull.dts.server.model.JobLog;
 import io.github.jasonnull.dts.server.route.ExecutorRouteStrategyEnum;
 import io.github.jasonnull.dts.server.schedule.JobDynamicScheduler;
-import io.github.jasonnull.dts.server.thread.JobFailMonitorHelper;
 import io.github.jasonnull.dts.server.util.I18nUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -116,7 +115,6 @@ public class JobTrigger {
                 JobDynamicScheduler.jobLogDao.updateTriggerInfo(jobLog);
 
                 // 6、monitor trigger
-                JobFailMonitorHelper.monitor(jobLog.getId());
                 logger.debug(">>>>>>>>>>> xxl-job trigger end, jobId:{}", jobLog.getId());
 
             }
@@ -186,7 +184,6 @@ public class JobTrigger {
             JobDynamicScheduler.jobLogDao.updateTriggerInfo(jobLog);
 
             // 6、monitor trigger
-            JobFailMonitorHelper.monitor(jobLog.getId());
             logger.debug(">>>>>>>>>>> xxl-job trigger end, jobId:{}", jobLog.getId());
         }
 

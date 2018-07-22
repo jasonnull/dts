@@ -1,7 +1,6 @@
 package io.github.jasonnull.dts.server.conf;
 
 import io.github.jasonnull.dts.server.schedule.JobDynamicScheduler;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -15,27 +14,28 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class SchedulerConfig {
-    @Value("${dts.job.accessToken}")
-    private String accessToken;
-
     @Bean("schedulerFactory")
     public SchedulerFactoryBean schedulerFactory(DataSource dataSource) {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         Resource resource = new ClassPathResource("quartz.properties");
+
         schedulerFactoryBean.setConfigLocation(resource);
         schedulerFactoryBean.setDataSource(dataSource);
         schedulerFactoryBean.setAutoStartup(true);
         schedulerFactoryBean.setStartupDelay(10);
         schedulerFactoryBean.setOverwriteExistingJobs(true);
         schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContextKey");
+
         return schedulerFactoryBean;
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
     public JobDynamicScheduler xxlJobDynamicScheduler(SchedulerFactoryBean schedulerFactory) {
         JobDynamicScheduler jobDynamicScheduler = new JobDynamicScheduler();
-        jobDynamicScheduler.setAccessToken(accessToken);
+
+        jobDynamicScheduler.setAccessToken(null);
         jobDynamicScheduler.setScheduler(schedulerFactory.getObject());
+
         return jobDynamicScheduler;
     }
 }

@@ -5,15 +5,14 @@ import io.github.jasonnull.dts.client.biz.ExecutorBiz;
 import io.github.jasonnull.dts.client.enums.ExecutorBlockStrategyEnum;
 import io.github.jasonnull.dts.client.rpc.netcom.NetComClientProxy;
 import io.github.jasonnull.dts.client.rpc.netcom.NetComServerFactory;
-import io.github.jasonnull.dts.server.jobbean.RemoteHttpJobBean;
-import io.github.jasonnull.dts.server.model.JobInfo;
-import io.github.jasonnull.dts.server.thread.JobFailMonitorHelper;
-import io.github.jasonnull.dts.server.thread.JobRegistryMonitorHelper;
-import io.github.jasonnull.dts.server.util.I18nUtil;
 import io.github.jasonnull.dts.server.dao.JobGroupDao;
 import io.github.jasonnull.dts.server.dao.JobInfoDao;
 import io.github.jasonnull.dts.server.dao.JobLogDao;
 import io.github.jasonnull.dts.server.dao.JobRegistryDao;
+import io.github.jasonnull.dts.server.jobbean.RemoteHttpJobBean;
+import io.github.jasonnull.dts.server.model.JobInfo;
+import io.github.jasonnull.dts.server.thread.JobRegistryMonitorHelper;
+import io.github.jasonnull.dts.server.util.I18nUtil;
 import org.quartz.*;
 import org.quartz.Trigger.TriggerState;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -326,9 +325,6 @@ public final class JobDynamicScheduler implements ApplicationContextAware {
         // admin registry monitor run
         JobRegistryMonitorHelper.getInstance().start();
 
-        // admin monitor run
-        JobFailMonitorHelper.getInstance().start();
-
         // admin-server(spring-mvc)
         NetComServerFactory.putService(AdminBiz.class, JobDynamicScheduler.adminBiz);
         NetComServerFactory.setAccessToken(accessToken);
@@ -350,9 +346,6 @@ public final class JobDynamicScheduler implements ApplicationContextAware {
     public void destroy() {
         // admin registry stop
         JobRegistryMonitorHelper.getInstance().toStop();
-
-        // admin monitor stop
-        JobFailMonitorHelper.getInstance().toStop();
     }
 
     /**

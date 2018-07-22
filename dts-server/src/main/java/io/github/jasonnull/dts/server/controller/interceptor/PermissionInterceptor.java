@@ -1,7 +1,7 @@
 package io.github.jasonnull.dts.server.controller.interceptor;
 
-import io.github.jasonnull.dts.server.controller.annotation.PermessionLimit;
 import io.github.jasonnull.dts.server.conf.JobServerConfig;
+import io.github.jasonnull.dts.server.controller.annotation.PermessionLimit;
 import io.github.jasonnull.dts.server.util.CookieUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -62,7 +62,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         if (!(handler instanceof HandlerMethod)) {
             return super.preHandle(request, response, handler);
         }
