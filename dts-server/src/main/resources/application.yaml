@@ -31,8 +31,6 @@ spring:
           template_exception_handler: ignore
           locale: zh_CN
           number_format: 0.##########
-  datasource:
-      type: com.mchange.v2.c3p0.ComboPooledDataSource
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
