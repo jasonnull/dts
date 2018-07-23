@@ -171,6 +171,9 @@
     <profiles>
         <profile>
             <id>jasonnull</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <dev.name>jasonnull</dev.name>
             </properties>

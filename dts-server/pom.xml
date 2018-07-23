@@ -111,9 +111,6 @@
                 </includes>
             </resource>
         </resources>
-        <filters>
-            <filter>src/main/resources/conf/jvjob-${dev.name}.properties</filter>
-        </filters>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -131,6 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <!-- 可以干掉？ -->
                 <configuration>
                     <archive>
                         <manifest>
@@ -138,7 +136,6 @@
                             <mainClass>io.github.jasonnull.dts.server.DTSApplication</mainClass>
                         </manifest>
                     </archive>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
