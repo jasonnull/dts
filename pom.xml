@@ -203,6 +203,12 @@
                 <dev.name>clint</dev.name>
             </properties>
         </profile>
+        <profile>
+            <id>swinwae</id>
+            <properties>
+                <dev.name>swinwae</dev.name>
+            </properties>
+        </profile>
     </profiles>
 
 </project>
