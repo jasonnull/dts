@@ -21,12 +21,12 @@ public class JobLogDaoTest {
 
     @Test
     public void test() {
-        List<JobLog> list = jobLogDao.pageList(0, 10, 1, 1, null, null, 1);
-        int list_count = jobLogDao.pageListCount(0, 10, 1, 1, null, null, 1);
+        List<JobLog> list = jobLogDao.pageList(0, 10, 1L, 1L, null, null, 1);
+        int list_count = jobLogDao.pageListCount(0, 10, 1L, 1L, null, null, 1);
 
         JobLog log = new JobLog();
-        log.setJobGroup(1);
-        log.setJobId(1);
+        log.setJobGroup(1L);
+        log.setJobId(1L);
 
         int ret1 = jobLogDao.save(log);
         JobLog dto = jobLogDao.load(log.getId());
@@ -51,7 +51,7 @@ public class JobLogDaoTest {
 
         List<Map<String, Object>> list2 = jobLogDao.triggerCountByDay(DateUtils.addDays(new Date(), 30), new Date());
 
-        int ret4 = jobLogDao.clearLog(1, 1, new Date(), 100);
+        int ret4 = jobLogDao.clearLog(1L, 1L, new Date(), 100);
 
         int ret2 = jobLogDao.delete(log.getJobId());
 

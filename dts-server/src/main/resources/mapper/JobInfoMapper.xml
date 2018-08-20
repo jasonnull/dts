@@ -3,36 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.jasonnull.dts.server.dao.JobInfoDao">
 
-    <resultMap id="XxlJobInfo" type="io.github.jasonnull.dts.server.model.JobInfo">
-        <result column="id" property="id"/>
-
-        <result column="job_group" property="jobGroup"/>
-        <result column="job_cron" property="jobCron"/>
-        <result column="job_desc" property="jobDesc"/>
-
-        <result column="add_time" property="addTime"/>
-        <result column="update_time" property="updateTime"/>
-
-        <result column="author" property="author"/>
-        <result column="alarm_email" property="alarmEmail"/>
-
-        <result column="executor_route_strategy" property="executorRouteStrategy"/>
-        <result column="executor_handler" property="executorHandler"/>
-        <result column="executor_param" property="executorParam"/>
-        <result column="executor_block_strategy" property="executorBlockStrategy"/>
-        <result column="executor_fail_strategy" property="executorFailStrategy"/>
-        <result column="executor_timeout" property="executorTimeout"/>
-
-        <result column="glue_type" property="glueType"/>
-        <result column="glue_source" property="glueSource"/>
-        <result column="glue_remark" property="glueRemark"/>
-        <result column="glue_updatetime" property="glueUpdatetime"/>
-
-        <result column="child_jobid" property="childJobId"/>
-    </resultMap>
-
     <sql id="Base_Column_List">
-        t.id,
+        t.job_id,
         t.job_group,
         t.job_cron,
         t.job_desc,
@@ -53,7 +25,7 @@
         t.child_jobid
     </sql>
 
-    <select id="pageList" parameterType="java.util.HashMap" resultMap="XxlJobInfo">
+    <select id="pageList" parameterType="java.util.HashMap" resultType="JobInfo">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_INFO AS t
@@ -68,7 +40,7 @@
                 AND t.executor_handler like CONCAT(CONCAT('%', #{executorHandler}), '%')
             </if>
         </trim>
-        ORDER BY id DESC
+        ORDER BY job_id DESC
         LIMIT #{offset}, #{pagesize}
     </select>
 
@@ -89,7 +61,7 @@
     </select>
 
     <insert id="save" parameterType="io.github.jasonnull.dts.server.model.JobInfo" useGeneratedKeys="true"
-            keyProperty="id">
+            keyProperty="jobId">
         INSERT INTO XXL_JOB_QRTZ_TRIGGER_INFO (
         job_group,
         job_cron,
@@ -129,17 +101,17 @@
         NOW(),
         #{childJobId}
         );
-        <!--<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+        <!--<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="jobGroup">
             SELECT LAST_INSERT_ID()
-            /*SELECT @@IDENTITY AS id*/
+            /*SELECT @@IDENTITY AS jobGroup*/
         </selectKey>-->
     </insert>
 
-    <select id="loadById" parameterType="java.util.HashMap" resultMap="XxlJobInfo">
+    <select id="loadById" parameterType="java.util.HashMap" resultType="JobInfo">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_INFO AS t
-        WHERE t.id = #{id}
+        WHERE t.job_id = #{jobId}
     </select>
 
     <update id="update" parameterType="io.github.jasonnull.dts.server.model.JobInfo">
@@ -161,16 +133,16 @@
             glue_remark = #{glueRemark},
             glue_updatetime = #{glueUpdatetime},
             child_jobid = #{childJobId}
-        WHERE id = #{id}
+        WHERE job_id = #{jobId}
     </update>
 
     <delete id="delete" parameterType="java.util.HashMap">
         DELETE
         FROM XXL_JOB_QRTZ_TRIGGER_INFO
-        WHERE id = #{id}
+        WHERE job_id = #{jobId}
     </delete>
 
-    <select id="getJobsByGroup" parameterType="java.util.HashMap" resultMap="XxlJobInfo">
+    <select id="getJobsByGroup" parameterType="java.util.HashMap" resultType="JobInfo">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_INFO AS t

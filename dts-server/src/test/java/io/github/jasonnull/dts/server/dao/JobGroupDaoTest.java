@@ -31,7 +31,7 @@ public class JobGroupDaoTest {
 
         int ret = jobGroupDao.save(group);
 
-        JobGroup group2 = jobGroupDao.load(group.getId());
+        JobGroup group2 = jobGroupDao.load(group.getJobGroup());
         group2.setAppName("setAppName2");
         group2.setTitle("setTitle2");
         group2.setOrder(2);
@@ -40,7 +40,7 @@ public class JobGroupDaoTest {
 
         int ret2 = jobGroupDao.update(group2);
 
-        int ret3 = jobGroupDao.remove(group.getId());
+        int ret3 = jobGroupDao.remove(group.getJobGroup());
     }
 
 }

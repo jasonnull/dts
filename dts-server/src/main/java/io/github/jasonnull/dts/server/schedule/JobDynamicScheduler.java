@@ -74,7 +74,7 @@ public final class JobDynamicScheduler implements ApplicationContextAware {
     public static void fillJobInfo(JobInfo jobInfo) {
         // TriggerKey : name + group
         String group = String.valueOf(jobInfo.getJobGroup());
-        String name = String.valueOf(jobInfo.getId());
+        String name = String.valueOf(jobInfo.getJobId());
         TriggerKey triggerKey = TriggerKey.triggerKey(name, group);
 
         try {
@@ -318,6 +318,7 @@ public final class JobDynamicScheduler implements ApplicationContextAware {
         JobDynamicScheduler.jobRegistryDao = applicationContext.getBean(JobRegistryDao.class);
         JobDynamicScheduler.jobGroupDao = applicationContext.getBean(JobGroupDao.class);
         JobDynamicScheduler.adminBiz = applicationContext.getBean(AdminBiz.class);
+        JobDynamicScheduler.scheduler = applicationContext.getBean(Scheduler.class);
     }
 
     // ---------------------- init + destroy ----------------------

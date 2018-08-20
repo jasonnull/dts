@@ -32,7 +32,7 @@ public class JobInfoController {
     private JobService jobService;
 
     @RequestMapping
-    public String index(Model model, @RequestParam(required = false, defaultValue = "-1") int jobGroup) {
+    public String index(Model model, @RequestParam(required = false, defaultValue = "-1") Long jobGroup) {
 
         // 枚举-字典
         model.addAttribute("ExecutorRouteStrategyEnum", ExecutorRouteStrategyEnum.values());    // 路由策略-列表
@@ -52,7 +52,7 @@ public class JobInfoController {
     @ResponseBody
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
-                                        int jobGroup, String jobDesc, String executorHandler, String filterTime) {
+                                        Long jobGroup, String jobDesc, String executorHandler, String filterTime) {
 
         return jobService.pageList(start, length, jobGroup, jobDesc, executorHandler, filterTime);
     }
@@ -61,9 +61,9 @@ public class JobInfoController {
     @ResponseBody
     public ReturnT<String> add(JobInfo jobInfo) {
         ReturnT<String> add = null;
-        for (int i = 0; i < 1500; i++) {
-            add = jobService.add(jobInfo);
-        }
+//        for (int i = 0; i < 1500; i++) {
+//        }
+        add = jobService.add(jobInfo);
 
         return add;
     }
@@ -76,25 +76,25 @@ public class JobInfoController {
 
     @RequestMapping("/remove")
     @ResponseBody
-    public ReturnT<String> remove(int id) {
+    public ReturnT<String> remove(Long id) {
         return jobService.remove(id);
     }
 
     @RequestMapping("/pause")
     @ResponseBody
-    public ReturnT<String> pause(int id) {
+    public ReturnT<String> pause(Long id) {
         return jobService.pause(id);
     }
 
     @RequestMapping("/resume")
     @ResponseBody
-    public ReturnT<String> resume(int id) {
+    public ReturnT<String> resume(Long id) {
         return jobService.resume(id);
     }
 
     @RequestMapping("/trigger")
     @ResponseBody
-    public ReturnT<String> triggerJob(int id) {
+    public ReturnT<String> triggerJob(Long id) {
         return jobService.triggerJob(id);
     }
 

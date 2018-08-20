@@ -21,27 +21,135 @@ spring:
     enabled: true
     order: 0
     settings:
-          classic_compatible: true
-          time_format: HH:mm:ss
-          datetime_format: yyyy-MM-dd HH:mm:s
-          default_encoding: UTF-8
-          template_update_delay: 0
-          output_encoding: UTF-8
-          date_format: yyyy-MM-dd
-          template_exception_handler: ignore
-          locale: zh_CN
-          number_format: 0.##########
+      classic_compatible: true
+      time_format: HH:mm:ss
+      datetime_format: yyyy-MM-dd HH:mm:s
+      default_encoding: UTF-8
+      template_update_delay: 0
+      output_encoding: UTF-8
+      date_format: yyyy-MM-dd
+      template_exception_handler: ignore
+      locale: zh_CN
+      number_format: 0.##########
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
-
+  type-aliases-package: io.github.jasonnull.dts.server.model
+  configuration:
+    map-underscore-to-camel-case: true
 quartz:
   enabled: true
+
+sharding:
+  datasource:
+      password: 123456
+      name: xxl-job
+      url: jdbc:mysql://localhost:3306
+      username: root
+  jdbc:
+    datasource:
+      names: xxl-job_0,xxl-job_1,xxl-job_2,xxl-job_3
+      xxl-job_3:
+        password: 123456
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_3
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+      xxl-job_0:
+        password: 123456
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_0
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+      xxl-job_2:
+        password: 123456
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_2
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+      xxl-job_1:
+        password: 123456
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_1
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+    config:
+      sharding:
+        tables:
+          xxl_job_qrtz_trigger_group:
+            database-strategy:
+              standard:
+               sharding-column: job_group
+               precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSDatabaseShardingAlgorithm
+            key-generator-column-name: job_group
+            actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_group
+          xxl_job_qrtz_trigger_info:
+            key-generator-column-name: job_id
+            actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_info
+            database-strategy:
+              standard:
+               sharding-column: job_group
+               precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSDatabaseShardingAlgorithm
+          xxl_job_qrtz_trigger_registry:
+            database-strategy:
+              standard:
+               sharding-column: job_group
+               precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSDatabaseShardingAlgorithm
+            key-generator-column-name: id
+            actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_registry
+          xxl_job_qrtz_trigger_logglue:
+            database-strategy:
+              standard:
+               sharding-column: job_group
+               precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSDatabaseShardingAlgorithm
+            key-generator-column-name: id
+            actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_logglue
+          xxl_job_qrtz_trigger_log:
+            database-strategy:
+              standard:
+               sharding-column: job_group
+               precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSDatabaseShardingAlgorithm
+            table-strategy:
+              standard:
+                sharding-column: job_id
+                precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSTableShardingAlgorithm
+            key-generator-column-name: id
+            actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_log_${0..1}
+#        default-database-strategy:
+#          inline:
+#            sharding-column: job_group
+#            algorithm-expression: xxl-job_${job_group % 4}
+        default-key-generator-class: io.shardingjdbc.core.keygen.DefaultKeyGenerator
+        props:
+          sql:
+            show: true
 
 ---
 spring:
   profiles: jasonnull
-  datasource:
-    url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: abcd1234_
+org:
+  quartz:
+    dataSource:
+      password: abcd1234_
+      user: root
+      url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+
+---
+spring:
+  profiles: clint
+org:
+  quartz:
+    dataSource:
+      password: 123456
+      userName: root
+      url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+
+---
+spring:
+  profiles: swinwae
+org:
+  quartz:
+    dataSource:
+      password: 123456
+      userName: root
+      url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false

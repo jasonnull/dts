@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ExecutorRouteFirst extends ExecutorRouter {
 
-    public String route(int jobId, ArrayList<String> addressList) {
+    public String route(Long jobId, ArrayList<String> addressList) {
         return addressList.get(0);
     }
 

@@ -2,29 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.jasonnull.dts.server.dao.JobLogDao">
-
-    <resultMap id="XxlJobLog" type="io.github.jasonnull.dts.server.model.JobLog">
-        <result column="id" property="id"/>
-
-        <result column="job_group" property="jobGroup"/>
-        <result column="job_id" property="jobId"/>
-
-        <result column="glue_type" property="glueType"/>
-
-        <result column="executor_address" property="executorAddress"/>
-        <result column="executor_handler" property="executorHandler"/>
-        <result column="executor_param" property="executorParam"/>
-
-        <result column="trigger_time" property="triggerTime"/>
-        <result column="trigger_code" property="triggerCode"/>
-        <result column="trigger_msg" property="triggerMsg"/>
-
-        <result column="handle_time" property="handleTime"/>
-        <result column="handle_code" property="handleCode"/>
-        <result column="handle_msg" property="handleMsg"/>
-
-    </resultMap>
-
     <sql id="Base_Column_List">
         t.id,
         t.job_group,
@@ -41,7 +18,7 @@
         t.handle_msg
     </sql>
 
-    <select id="pageList" resultMap="XxlJobLog">
+    <select id="pageList" resultType="JobLog">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_LOG AS t
@@ -72,7 +49,7 @@
                 AND t.handle_code = 0
             </if>
         </trim>
-        ORDER BY id DESC
+        ORDER BY t.id DESC
         LIMIT #{offset}, #{pagesize}
     </select>
 
@@ -108,7 +85,7 @@
         </trim>
     </select>
 
-    <select id="load" parameterType="java.lang.Integer" resultMap="XxlJobLog">
+    <select id="load" parameterType="java.lang.Long" resultType="JobLog">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_LOG AS t
@@ -129,7 +106,7 @@
         #{triggerCode},
         #{handleCode}
         );
-        <!--<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+        <!--<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="jobGroup">
             SELECT LAST_INSERT_ID()
         </selectKey>-->
     </insert>
@@ -144,7 +121,7 @@
             `executor_address`= #{executorAddress},
             `executor_handler`=#{executorHandler},
             `executor_param`= #{executorParam}
-        WHERE `id`= #{id}
+        WHERE `id` = #{id}
     </update>
 
     <update id="updateHandleInfo">
@@ -153,7 +130,7 @@
             `handle_time`= #{handleTime},
             `handle_code`= #{handleCode},
             `handle_msg`= #{handleMsg}
-        WHERE `id`= #{id}
+        WHERE `id` = #{id}
     </update>
 
     <delete id="delete">

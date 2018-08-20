@@ -187,24 +187,27 @@
     <profiles>
         <profile>
             <id>jasonnull</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
             <properties>
                 <dev.name>jasonnull</dev.name>
             </properties>
         </profile>
         <profile>
             <id>clint</id>
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <dev.name>clint</dev.name>
             </properties>
         </profile>
         <profile>
             <id>swinwae</id>
+            <!--<activation>-->
+            <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
             <properties>
                 <dev.name>swinwae</dev.name>
             </properties>

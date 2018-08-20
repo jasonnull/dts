@@ -149,7 +149,7 @@
 <script src="${request.contextPath}/asset/plugins/codemirror/addon/hint/anyword-hint.js"></script>
 
 <script>
-    var id = '${jobInfo.id}';
+    var id = '${jobInfo.getJobId}';
     var ideMode = '${glueTypeIdeMode}';
 </script>
 <script src="${request.contextPath}/asset/js/jobcode.index.1.js"></script>

@@ -44,7 +44,7 @@ public class JobServiceImpl implements JobService {
     private JobLogGlueDao jobLogGlueDao;
 
     @Override
-    public Map<String, Object> pageList(int start, int length, int jobGroup, String jobDesc, String executorHandler, String filterTime) {
+    public Map<String, Object> pageList(int start, int length, Long jobGroup, String jobDesc, String executorHandler, String filterTime) {
 
         // page list
         List<JobInfo> list = jobInfoDao.pageList(start, length, jobGroup, jobDesc, executorHandler);
@@ -107,7 +107,7 @@ public class JobServiceImpl implements JobService {
             String[] childJobIds = StringUtils.split(jobInfo.getChildJobId(), ",");
             for (String childJobIdItem : childJobIds) {
                 if (StringUtils.isNotBlank(childJobIdItem) && StringUtils.isNumeric(childJobIdItem)) {
-                    JobInfo childJobInfo = jobInfoDao.loadById(Integer.valueOf(childJobIdItem));
+                    JobInfo childJobInfo = jobInfoDao.loadById(Long.valueOf(childJobIdItem));
                     if (childJobInfo == null) {
                         return new ReturnT<String>(ReturnT.FAIL_CODE,
                                 MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId") + "({0})" + I18nUtil.getString("system_not_found")), childJobIdItem));
@@ -122,13 +122,13 @@ public class JobServiceImpl implements JobService {
 
         // add in db
         jobInfoDao.save(jobInfo);
-        if (jobInfo.getId() < 1) {
+        if (jobInfo.getJobId() < 1) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_add") + I18nUtil.getString("system_fail")));
         }
 
         // add in quartz
         String qz_group = String.valueOf(jobInfo.getJobGroup());
-        String qz_name = String.valueOf(jobInfo.getId());
+        String qz_name = String.valueOf(jobInfo.getJobId());
         try {
             JobDynamicScheduler.addJob(qz_name, qz_group, jobInfo.getJobCron());
             //JobDynamicScheduler.pauseJob(qz_name, qz_group);
@@ -136,7 +136,7 @@ public class JobServiceImpl implements JobService {
         } catch (SchedulerException e) {
             logger.error(e.getMessage(), e);
             try {
-                jobInfoDao.delete(jobInfo.getId());
+                jobInfoDao.delete(jobInfo.getJobId());
                 JobDynamicScheduler.removeJob(qz_name, qz_group);
             } catch (SchedulerException e1) {
                 logger.error(e.getMessage(), e1);
@@ -173,13 +173,13 @@ public class JobServiceImpl implements JobService {
             String[] childJobIds = StringUtils.split(jobInfo.getChildJobId(), ",");
             for (String childJobIdItem : childJobIds) {
                 if (StringUtils.isNotBlank(childJobIdItem) && StringUtils.isNumeric(childJobIdItem)) {
-                    JobInfo childJobInfo = jobInfoDao.loadById(Integer.valueOf(childJobIdItem));
+                    JobInfo childJobInfo = jobInfoDao.loadById(Long.valueOf(childJobIdItem));
                     if (childJobInfo == null) {
                         return new ReturnT<String>(ReturnT.FAIL_CODE,
                                 MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId") + "({0})" + I18nUtil.getString("system_not_found")), childJobIdItem));
                     }
                     // avoid cycle relate
-                    if (childJobInfo.getId() == jobInfo.getId()) {
+                    if (childJobInfo.getJobId() == jobInfo.getJobId()) {
                         return new ReturnT<String>(ReturnT.FAIL_CODE, MessageFormat.format(I18nUtil.getString("jobinfo_field_childJobId_limit"), childJobIdItem));
                     }
                 } else {
@@ -191,7 +191,7 @@ public class JobServiceImpl implements JobService {
         }
 
         // stage job info
-        JobInfo exists_jobInfo = jobInfoDao.loadById(jobInfo.getId());
+        JobInfo exists_jobInfo = jobInfoDao.loadById(jobInfo.getJobId());
         if (exists_jobInfo == null) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_id") + I18nUtil.getString("system_not_found")));
         }
@@ -212,7 +212,7 @@ public class JobServiceImpl implements JobService {
 
         // fresh quartz
         String qz_group = String.valueOf(exists_jobInfo.getJobGroup());
-        String qz_name = String.valueOf(exists_jobInfo.getId());
+        String qz_name = String.valueOf(exists_jobInfo.getJobId());
         try {
             boolean ret = JobDynamicScheduler.rescheduleJob(qz_group, qz_name, exists_jobInfo.getJobCron());
             return ret ? ReturnT.SUCCESS : ReturnT.FAIL;
@@ -224,10 +224,10 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public ReturnT<String> remove(int id) {
+    public ReturnT<String> remove(Long id) {
         JobInfo jobInfo = jobInfoDao.loadById(id);
         String group = String.valueOf(jobInfo.getJobGroup());
-        String name = String.valueOf(jobInfo.getId());
+        String name = String.valueOf(jobInfo.getJobId());
 
         try {
             JobDynamicScheduler.removeJob(name, group);
@@ -242,10 +242,10 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public ReturnT<String> pause(int id) {
+    public ReturnT<String> pause(Long id) {
         JobInfo jobInfo = jobInfoDao.loadById(id);
         String group = String.valueOf(jobInfo.getJobGroup());
-        String name = String.valueOf(jobInfo.getId());
+        String name = String.valueOf(jobInfo.getJobId());
 
         try {
             boolean ret = JobDynamicScheduler.pauseJob(name, group);    // jobStatus do not store
@@ -257,10 +257,10 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public ReturnT<String> resume(int id) {
+    public ReturnT<String> resume(Long id) {
         JobInfo jobInfo = jobInfoDao.loadById(id);
         String group = String.valueOf(jobInfo.getJobGroup());
-        String name = String.valueOf(jobInfo.getId());
+        String name = String.valueOf(jobInfo.getJobId());
 
         try {
             boolean ret = JobDynamicScheduler.resumeJob(name, group);
@@ -272,14 +272,14 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public ReturnT<String> triggerJob(int id) {
+    public ReturnT<String> triggerJob(Long id) {
         JobInfo jobInfo = jobInfoDao.loadById(id);
         if (jobInfo == null) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_id") + I18nUtil.getString("system_unvalid")));
         }
 
         String group = String.valueOf(jobInfo.getJobGroup());
-        String name = String.valueOf(jobInfo.getId());
+        String name = String.valueOf(jobInfo.getJobId());
 
         try {
             JobDynamicScheduler.triggerJob(name, group);

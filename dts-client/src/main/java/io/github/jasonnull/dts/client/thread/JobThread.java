@@ -26,10 +26,10 @@ import java.util.concurrent.*;
 public class JobThread extends Thread {
     private static Logger logger = LoggerFactory.getLogger(JobThread.class);
 
-    private int jobId;
+    private Long jobId;
     private IJobHandler handler;
     private LinkedBlockingQueue<TriggerParam> triggerQueue;
-    private Set<Integer> triggerLogIdSet;        // avoid repeat trigger for the same TRIGGER_LOG_ID
+    private Set<Long> triggerLogIdSet;        // avoid repeat trigger for the same TRIGGER_LOG_ID
 
     private volatile boolean toStop = false;
     private String stopReason;
@@ -38,11 +38,11 @@ public class JobThread extends Thread {
     private int idleTimes = 0;            // idel times
 
 
-    public JobThread(int jobId, IJobHandler handler) {
+    public JobThread(Long jobId, IJobHandler handler) {
         this.jobId = jobId;
         this.handler = handler;
         this.triggerQueue = new LinkedBlockingQueue<TriggerParam>();
-        this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<Integer>());
+        this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<Long>());
     }
 
     public IJobHandler getHandler() {

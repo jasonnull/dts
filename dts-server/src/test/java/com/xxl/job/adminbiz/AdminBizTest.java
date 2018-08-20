@@ -56,7 +56,7 @@ public class AdminBizTest {
     public void triggerJob() throws Exception {
         AdminBiz adminBiz = (AdminBiz) new NetComClientProxy(AdminBiz.class, addressUrl, accessToken).getObject();
 
-        int jobId = 1;
+        Long jobId = 1L;
         ReturnT<String> returnT = adminBiz.triggerJob(jobId);
         Assert.assertTrue(returnT.getCode() == ReturnT.SUCCESS_CODE);
     }

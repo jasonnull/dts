@@ -23,7 +23,7 @@ public interface JobService {
      * @param filterTime
      * @return
      */
-    public Map<String, Object> pageList(int start, int length, int jobGroup, String jobDesc, String executorHandler, String filterTime);
+    public Map<String, Object> pageList(int start, int length, Long jobGroup, String jobDesc, String executorHandler, String filterTime);
 
     /**
      * add job
@@ -47,7 +47,7 @@ public interface JobService {
      * @param id
      * @return
      */
-    public ReturnT<String> remove(int id);
+    public ReturnT<String> remove(Long id);
 
     /**
      * pause job
@@ -55,7 +55,7 @@ public interface JobService {
      * @param id
      * @return
      */
-    public ReturnT<String> pause(int id);
+    public ReturnT<String> pause(Long id);
 
     /**
      * resume job
@@ -63,7 +63,7 @@ public interface JobService {
      * @param id
      * @return
      */
-    public ReturnT<String> resume(int id);
+    public ReturnT<String> resume(Long id);
 
     /**
      * trigger job
@@ -71,7 +71,7 @@ public interface JobService {
      * @param id
      * @return
      */
-    public ReturnT<String> triggerJob(int id);
+    public ReturnT<String> triggerJob(Long id);
 
     /**
      * dashboard info

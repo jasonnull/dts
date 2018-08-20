@@ -30,8 +30,8 @@
                         <span class="input-group-addon">${I18n.jobinfo_field_jobgroup}</span>
                         <select class="form-control" id="jobGroup">
                             <#list JobGroupList as group>
-                                <option value="${group.id}"
-                                        <#if jobGroup==group.id>selected</#if> >${group.title}</option>
+                                <option value="${group.jobGroup}"
+                                        <#if jobGroup==group.jobGroup>selected</#if> >${group.title}</option>
                             </#list>
                         </select>
                     </div>
@@ -66,7 +66,7 @@
                             <table id="job_list" class="table table-bordered table-striped" width="100%">
                                 <thead>
                                 <tr>
-                                    <th name="id">${I18n.jobinfo_field_id}</th>
+                                    <th name="jobId">${I18n.jobinfo_field_id}</th>
                                     <th name="jobGroup">${I18n.jobinfo_field_jobgroup}</th>
                                     <th name="jobDesc">${I18n.jobinfo_field_jobdesc}</th>
                                     <th name="glueType">${I18n.jobinfo_field_gluetype}</th>
@@ -109,8 +109,8 @@
                         <div class="col-sm-4">
                             <select class="form-control" name="jobGroup">
                                 <#list JobGroupList as group>
-                                    <option value="${group.id}"
-                                            <#if jobGroup==group.id>selected</#if> >${group.title}</option>
+                                    <option value="${group.jobGroup}"
+                                            <#if jobGroup==group.jobGroup>selected</#if> >${group.title}</option>
                                 </#list>
                             </select>
                         </div>
@@ -313,7 +313,7 @@ process.exit(0)
                         <div class="col-sm-4">
                             <select class="form-control" name="jobGroup" disabled>
                             <#list JobGroupList as group>
-                                <option value="${group.id}">${group.title}</option>
+                                <option value="${group.jobGroup}">${group.title}</option>
                             </#list>
                             </select>
                         </div>
@@ -415,7 +415,7 @@ process.exit(0)
                             <button type="submit" class="btn btn-primary">${I18n.system_save}</button>
                             <button type="button" class="btn btn-default"
                                     data-dismiss="modal">${I18n.system_cancel}</button>
-                            <input type="hidden" name="id">
+                            <input type="hidden" name="jobId">
                         </div>
                     </div>
 

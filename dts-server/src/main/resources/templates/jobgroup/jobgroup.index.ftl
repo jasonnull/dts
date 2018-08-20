@@ -69,14 +69,14 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-warning btn-xs update"
-                                                    id="${group.id}"
+                                                    id="${group.jobGroup}"
                                                     appName="${group.appName}"
                                                     title="${group.title}"
                                                     order="${group.order}"
                                                     addressType="${group.addressType}"
                                                     addressList="${group.addressList}">${I18n.system_opt_edit}</button>
                                             <button class="btn btn-danger btn-xs remove"
-                                                    id="${group.id}">${I18n.system_opt_del}</button>
+                                                    id="${group.jobGroup}">${I18n.system_opt_del}</button>
                                         </td>
                                     </tr>
                                 </#list>

@@ -3,17 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.jasonnull.dts.server.dao.JobGroupDao">
 
-    <resultMap id="XxlJobGroup" type="io.github.jasonnull.dts.server.model.JobGroup">
-        <result column="id" property="id"/>
-        <result column="app_name" property="appName"/>
-        <result column="title" property="title"/>
-        <result column="order" property="order"/>
-        <result column="address_type" property="addressType"/>
-        <result column="address_list" property="addressList"/>
-    </resultMap>
-
     <sql id="Base_Column_List">
-        t.id,
+        t.job_group,
         t.app_name,
         t.title,
         t.order,
@@ -21,14 +12,14 @@
         t.address_list
     </sql>
 
-    <select id="findAll" resultMap="XxlJobGroup">
+    <select id="findAll" resultType="JobGroup">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
         ORDER BY t.order ASC
     </select>
 
-    <select id="findByAddressType" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
+    <select id="findByAddressType" resultType="JobGroup">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
@@ -37,7 +28,7 @@
     </select>
 
     <insert id="save" parameterType="io.github.jasonnull.dts.server.model.JobGroup" useGeneratedKeys="true"
-            keyProperty="id">
+            keyProperty="jobGroup">
         INSERT INTO XXL_JOB_QRTZ_TRIGGER_GROUP ( `app_name`, `title`, `order`, `address_type`, `address_list`)
         values ( #{appName}, #{title}, #{order}, #{addressType}, #{addressList});
     </insert>
@@ -49,19 +40,19 @@
             `order` = #{order},
             `address_type` = #{addressType},
             `address_list` = #{addressList}
-        WHERE id = #{id}
+        WHERE job_group = #{jobGroup}
     </update>
 
-    <delete id="remove" parameterType="java.lang.Integer">
+    <delete id="remove" parameterType="java.lang.Long">
         DELETE FROM XXL_JOB_QRTZ_TRIGGER_GROUP
-        WHERE id = #{id}
+        WHERE job_group = #{jobGroup}
     </delete>
 
-    <select id="load" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
+    <select id="load" parameterType="java.lang.Long" resultType="JobGroup">
         SELECT
         <include refid="Base_Column_List"/>
         FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
-        WHERE t.id = #{id}
+        WHERE t.job_group = #{jobGroup}
     </select>
 
 </mapper>

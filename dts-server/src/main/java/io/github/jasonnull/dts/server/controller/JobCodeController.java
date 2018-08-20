@@ -29,7 +29,7 @@ public class JobCodeController {
     private JobLogGlueDao jobLogGlueDao;
 
     @RequestMapping
-    public String index(Model model, int jobId) {
+    public String index(Model model, Long jobId) {
         JobInfo jobInfo = jobInfoDao.loadById(jobId);
         List<JobLogGlue> jobLogGlues = jobLogGlueDao.findByJobId(jobId);
 
@@ -50,7 +50,7 @@ public class JobCodeController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ReturnT<String> save(Model model, int id, String glueSource, String glueRemark) {
+    public ReturnT<String> save(Model model, Long id, String glueSource, String glueRemark) {
         // valid
         if (glueRemark == null) {
             return new ReturnT<String>(500, (I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_glue_remark")));
@@ -71,14 +71,14 @@ public class JobCodeController {
 
         // log old code
         JobLogGlue jobLogGlue = new JobLogGlue();
-        jobLogGlue.setJobId(exists_jobInfo.getId());
+        jobLogGlue.setJobId(exists_jobInfo.getJobId());
         jobLogGlue.setGlueType(exists_jobInfo.getGlueType());
         jobLogGlue.setGlueSource(glueSource);
         jobLogGlue.setGlueRemark(glueRemark);
         jobLogGlueDao.save(jobLogGlue);
 
         // remove code backup more than 30
-        jobLogGlueDao.removeOld(exists_jobInfo.getId(), 30);
+        jobLogGlueDao.removeOld(exists_jobInfo.getJobId(), 30);
 
         return ReturnT.SUCCESS;
     }

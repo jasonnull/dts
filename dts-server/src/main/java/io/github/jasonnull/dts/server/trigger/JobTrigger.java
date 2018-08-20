@@ -30,7 +30,7 @@ public class JobTrigger {
      *
      * @param jobId
      */
-    public static void trigger(int jobId) {
+    public static void trigger(Long jobId) {
 
         // load data
         JobInfo jobInfo = JobDynamicScheduler.jobInfoDao.loadById(jobId);              // job info
@@ -50,10 +50,10 @@ public class JobTrigger {
             for (int i = 0; i < addressList.size(); i++) {
                 String address = addressList.get(i);
 
-                // 1、save log-id
+                // 1、save log-jobGroup
                 JobLog jobLog = new JobLog();
                 jobLog.setJobGroup(jobInfo.getJobGroup());
-                jobLog.setJobId(jobInfo.getId());
+                jobLog.setJobId(jobInfo.getJobId());
                 JobDynamicScheduler.jobLogDao.save(jobLog);
                 logger.debug(">>>>>>>>>>> xxl-job trigger start, jobId:{}", jobLog.getId());
 
@@ -84,7 +84,7 @@ public class JobTrigger {
                 if (triggerResult.getCode() == ReturnT.SUCCESS_CODE) {
                     // 4.1、trigger-param
                     TriggerParam triggerParam = new TriggerParam();
-                    triggerParam.setJobId(jobInfo.getId());
+                    triggerParam.setJobId(jobInfo.getJobId());
                     triggerParam.setExecutorHandler(jobInfo.getExecutorHandler());
                     triggerParam.setExecutorParams(jobInfo.getExecutorParam());
                     triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
@@ -119,10 +119,10 @@ public class JobTrigger {
 
             }
         } else {
-            // 1、save log-id
+            // 1、save log-jobGroup
             JobLog jobLog = new JobLog();
             jobLog.setJobGroup(jobInfo.getJobGroup());
-            jobLog.setJobId(jobInfo.getId());
+            jobLog.setJobId(jobInfo.getJobId());
             JobDynamicScheduler.jobLogDao.save(jobLog);
             logger.debug(">>>>>>>>>>> xxl-job trigger start, jobId:{}", jobLog.getId());
 
@@ -153,7 +153,7 @@ public class JobTrigger {
             if (triggerResult.getCode() == ReturnT.SUCCESS_CODE) {
                 // 4.1、trigger-param
                 TriggerParam triggerParam = new TriggerParam();
-                triggerParam.setJobId(jobInfo.getId());
+                triggerParam.setJobId(jobInfo.getJobId());
                 triggerParam.setExecutorHandler(jobInfo.getExecutorHandler());
                 triggerParam.setExecutorParams(jobInfo.getExecutorParam());
                 triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());

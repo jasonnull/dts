@@ -67,7 +67,7 @@ public class AdminBizImpl implements AdminBiz {
 
                 String[] childJobIds = jobInfo.getChildJobId().split(",");
                 for (int i = 0; i < childJobIds.length; i++) {
-                    int childJobId = (StringUtils.isNotBlank(childJobIds[i]) && StringUtils.isNumeric(childJobIds[i])) ? Integer.valueOf(childJobIds[i]) : -1;
+                    Long childJobId = (StringUtils.isNotBlank(childJobIds[i]) && StringUtils.isNumeric(childJobIds[i])) ? Long.valueOf(childJobIds[i]) : -1;
                     if (childJobId > 0) {
                         ReturnT<String> triggerChildResult = jobService.triggerJob(childJobId);
 
@@ -143,7 +143,7 @@ public class AdminBizImpl implements AdminBiz {
     }
 
     @Override
-    public ReturnT<String> triggerJob(int jobId) {
+    public ReturnT<String> triggerJob(Long jobId) {
         return jobService.triggerJob(jobId);
     }
 

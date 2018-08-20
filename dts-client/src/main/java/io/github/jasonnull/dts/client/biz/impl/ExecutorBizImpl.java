@@ -28,7 +28,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     @Override
-    public ReturnT<String> idleBeat(int jobId) {
+    public ReturnT<String> idleBeat(Long jobId) {
 
         // isRunningOrHasQueue
         boolean isRunningOrHasQueue = false;
@@ -44,7 +44,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     @Override
-    public ReturnT<String> kill(int jobId) {
+    public ReturnT<String> kill(Long jobId) {
         // kill handlerThread, and create new one
         JobThread jobThread = XxlJobExecutor.loadJobThread(jobId);
         if (jobThread != null) {
@@ -56,7 +56,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     @Override
-    public ReturnT<LogResult> log(long logDateTim, int logId, int fromLineNum) {
+    public ReturnT<LogResult> log(long logDateTim, Long logId, int fromLineNum) {
         // log filename: logPath/yyyy-MM-dd/9999.log
         String logFileName = XxlJobFileAppender.makeLogFileName(new Date(logDateTim), logId);
 

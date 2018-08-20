@@ -57,7 +57,7 @@ public class ExecutorRouteConsistentHash extends ExecutorRouter {
         return truncateHashCode;
     }
 
-    public String route(int jobId, ArrayList<String> addressList) {
+    public String route(Long jobId, ArrayList<String> addressList) {
 
         // ------A1------A2-------A3------
         // -----------J1------------------

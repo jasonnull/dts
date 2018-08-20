@@ -19,17 +19,17 @@ public class JobLogGlueDaoTest {
     @Test
     public void test() {
         JobLogGlue logGlue = new JobLogGlue();
-        logGlue.setJobId(1);
+        logGlue.setJobId(1L);
         logGlue.setGlueType("1");
         logGlue.setGlueSource("1");
         logGlue.setGlueRemark("1");
         int ret = jobLogGlueDao.save(logGlue);
 
-        List<JobLogGlue> list = jobLogGlueDao.findByJobId(1);
+        List<JobLogGlue> list = jobLogGlueDao.findByJobId(1L);
 
-        int ret2 = jobLogGlueDao.removeOld(1, 1);
+        int ret2 = jobLogGlueDao.removeOld(1L, 1);
 
-        int ret3 = jobLogGlueDao.deleteByJobId(1);
+        int ret3 = jobLogGlueDao.deleteByJobId(1L);
     }
 
 }

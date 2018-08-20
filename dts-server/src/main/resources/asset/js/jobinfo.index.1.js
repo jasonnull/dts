@@ -23,7 +23,7 @@ $(function () {
         //"scrollX": true,    // scroll x，close self-adaption
         "columns": [
             {
-                "data": 'id',
+                "data": 'jobId',
                 "bSortable": false,
                 "visible": true,
                 "width": '10%'
@@ -110,18 +110,18 @@ $(function () {
                             pause_resume = '<button class="btn btn-primary btn-xs job_operate" _type="job_resume" type="button">' + I18n.jobinfo_opt_resume + '</button>  ';
                         }
                         // log url
-                        var logUrl = base_url + '/joblog?jobId=' + row.id;
+                        var logUrl = base_url + '/joblog?jobId=' + row.jobId;
 
                         // log url
                         var codeBtn = "";
                         if ('BEAN' != row.glueType) {
-                            var codeUrl = base_url + '/jobcode?jobId=' + row.id;
+                            var codeUrl = base_url + '/jobcode?jobId=' + row.jobId;
                             codeBtn = '<button class="btn btn-warning btn-xs" type="button" onclick="javascript:window.open(\'' + codeUrl + '\')" >GLUE</button>  '
                         }
 
                         // html
-                        tableData['key' + row.id] = row;
-                        var html = '<p id="' + row.id + '" >' +
+                        tableData['key' + row.jobId] = row;
+                        var html = '<p id="' + row.jobId + '" >' +
                             '<button class="btn btn-primary btn-xs job_operate" _type="job_trigger" type="button">' + I18n.jobinfo_opt_run + '</button>  ' +
                             pause_resume +
                             '<button class="btn btn-primary btn-xs" type="job_del" type="button" onclick="javascript:window.open(\'' + logUrl + '\')" >' + I18n.jobinfo_opt_log + '</button><br>  ' +
@@ -367,7 +367,8 @@ $(function () {
         var row = tableData['key' + id];
 
         // base data
-        $("#updateModal .form input[name='id']").val(row.id);
+        $("#updateModal .form input[name='jobGroup']").val(row.jobGroup);
+        $("#updateModal .form input[name='jobId']").val(id);
         $('#updateModal .form select[name=jobGroup] option[value=' + row.jobGroup + ']').prop('selected', true);
         $("#updateModal .form input[name='jobDesc']").val(row.jobDesc);
         $("#updateModal .form input[name='jobCron']").val(row.jobCron);

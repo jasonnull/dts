@@ -13,7 +13,7 @@ public class ExecutorRouteRandom extends ExecutorRouter {
 
     private static Random localRandom = new Random();
 
-    public String route(int jobId, ArrayList<String> addressList) {
+    public String route(Long jobId, ArrayList<String> addressList) {
         // Collections.shuffle(addressList);
         return addressList.get(localRandom.nextInt(addressList.size()));
     }

@@ -44,7 +44,7 @@ public class JobLogController {
     private JobGroupDao jobGroupDao;
 
     @RequestMapping
-    public String index(Model model, @RequestParam(required = false, defaultValue = "0") Integer jobId) {
+    public String index(Model model, @RequestParam(required = false, defaultValue = "0") Long jobId) {
 
         // 执行器列表
         List<JobGroup> jobGroupList = jobGroupDao.findAll();
@@ -62,7 +62,7 @@ public class JobLogController {
 
     @RequestMapping("/getJobsByGroup")
     @ResponseBody
-    public ReturnT<List<JobInfo>> getJobsByGroup(int jobGroup) {
+    public ReturnT<List<JobInfo>> getJobsByGroup(Long jobGroup) {
         List<JobInfo> list = jobInfoDao.getJobsByGroup(jobGroup);
         return new ReturnT<List<JobInfo>>(list);
     }
@@ -71,7 +71,7 @@ public class JobLogController {
     @ResponseBody
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
-                                        int jobGroup, int jobId, int logStatus, String filterTime) {
+                                        Long jobGroup, Long jobId, int logStatus, String filterTime) {
 
         // parse param
         Date triggerTimeStart = null;
@@ -88,8 +88,8 @@ public class JobLogController {
         }
 
         // page query
-        List<JobLog> list = jobLogDao.pageList(start, length, jobGroup, jobId, triggerTimeStart, triggerTimeEnd, logStatus);
         int list_count = jobLogDao.pageListCount(start, length, jobGroup, jobId, triggerTimeStart, triggerTimeEnd, logStatus);
+        List<JobLog> list = jobLogDao.pageList(start, length, jobGroup, jobId, triggerTimeStart, triggerTimeEnd, logStatus);
 
         // package result
         Map<String, Object> maps = new HashMap<String, Object>();
@@ -100,7 +100,7 @@ public class JobLogController {
     }
 
     @RequestMapping("/logDetailPage")
-    public String logDetailPage(int id, Model model) {
+    public String logDetailPage(Long id, Model model) {
 
         // base check
         ReturnT<String> logStatue = ReturnT.SUCCESS;
@@ -119,7 +119,7 @@ public class JobLogController {
 
     @RequestMapping("/logDetailCat")
     @ResponseBody
-    public ReturnT<LogResult> logDetailCat(String executorAddress, long triggerTime, int logId, int fromLineNum) {
+    public ReturnT<LogResult> logDetailCat(String executorAddress, long triggerTime, Long logId, int fromLineNum) {
         try {
             ExecutorBiz executorBiz = JobDynamicScheduler.getExecutorBiz(executorAddress);
             ReturnT<LogResult> logResult = executorBiz.log(triggerTime, logId, fromLineNum);
@@ -141,7 +141,7 @@ public class JobLogController {
 
     @RequestMapping("/logKill")
     @ResponseBody
-    public ReturnT<String> logKill(int id) {
+    public ReturnT<String> logKill(Long id) {
         // base check
         JobLog log = jobLogDao.load(id);
         JobInfo jobInfo = jobInfoDao.loadById(log.getJobId());
@@ -156,7 +156,7 @@ public class JobLogController {
         ReturnT<String> runResult = null;
         try {
             ExecutorBiz executorBiz = JobDynamicScheduler.getExecutorBiz(log.getExecutorAddress());
-            runResult = executorBiz.kill(jobInfo.getId());
+            runResult = executorBiz.kill(jobInfo.getJobId());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             runResult = new ReturnT<String>(500, e.getMessage());
@@ -175,7 +175,7 @@ public class JobLogController {
 
     @RequestMapping("/clearLog")
     @ResponseBody
-    public ReturnT<String> clearLog(int jobGroup, int jobId, int type) {
+    public ReturnT<String> clearLog(Long jobGroup, Long jobId, int type) {
 
         Date clearBeforeTime = null;
         int clearBeforeNum = 0;

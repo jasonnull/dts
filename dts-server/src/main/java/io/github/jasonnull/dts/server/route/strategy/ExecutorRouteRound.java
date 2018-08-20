@@ -12,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ExecutorRouteRound extends ExecutorRouter {
 
-    private static ConcurrentHashMap<Integer, Integer> routeCountEachJob = new ConcurrentHashMap<Integer, Integer>();
+    private static ConcurrentHashMap<Long, Integer> routeCountEachJob = new ConcurrentHashMap<Long, Integer>();
     private static long CACHE_VALID_TIME = 0;
 
-    private static int count(int jobId) {
+    private static int count(Long jobId) {
         // cache clear
         if (System.currentTimeMillis() > CACHE_VALID_TIME) {
             routeCountEachJob.clear();
@@ -29,7 +29,7 @@ public class ExecutorRouteRound extends ExecutorRouter {
         return count;
     }
 
-    public String route(int jobId, ArrayList<String> addressList) {
+    public String route(Long jobId, ArrayList<String> addressList) {
         return addressList.get(count(jobId) % addressList.size());
     }
 

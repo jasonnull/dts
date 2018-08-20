@@ -50,6 +50,6 @@ public interface AdminBiz {
      * @param jobId
      * @return
      */
-    public ReturnT<String> triggerJob(int jobId);
+    public ReturnT<String> triggerJob(Long jobId);
 
 }

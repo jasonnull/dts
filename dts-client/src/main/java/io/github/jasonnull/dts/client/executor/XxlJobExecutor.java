@@ -32,7 +32,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
     // ---------------------- job handler repository ----------------------
     private static ConcurrentHashMap<String, IJobHandler> jobHandlerRepository = new ConcurrentHashMap<String, IJobHandler>();
     // ---------------------- job thread repository ----------------------
-    private static ConcurrentHashMap<Integer, JobThread> JobThreadRepository = new ConcurrentHashMap<Integer, JobThread>();
+    private static ConcurrentHashMap<Long, JobThread> JobThreadRepository = new ConcurrentHashMap<Long, JobThread>();
     // ---------------------- param ----------------------
     private String adminAddresses;
     private String appName;
@@ -103,7 +103,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
         }
     }
 
-    public static JobThread registJobThread(int jobId, IJobHandler handler, String removeOldReason) {
+    public static JobThread registJobThread(Long jobId, IJobHandler handler, String removeOldReason) {
         JobThread newJobThread = new JobThread(jobId, handler);
         newJobThread.start();
         logger.info(">>>>>>>>>>> xxl-job regist JobThread success, jobId:{}, handler:{}", new Object[]{jobId, handler});
@@ -117,7 +117,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
         return newJobThread;
     }
 
-    public static void removeJobThread(int jobId, String removeOldReason) {
+    public static void removeJobThread(Long jobId, String removeOldReason) {
         JobThread oldJobThread = JobThreadRepository.remove(jobId);
         if (oldJobThread != null) {
             oldJobThread.toStop(removeOldReason);
@@ -125,7 +125,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
         }
     }
 
-    public static JobThread loadJobThread(int jobId) {
+    public static JobThread loadJobThread(Long jobId) {
         JobThread jobThread = JobThreadRepository.get(jobId);
         return jobThread;
     }
@@ -179,7 +179,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
     public void destroy() {
         // destory JobThreadRepository
         if (JobThreadRepository.size() > 0) {
-            for (Map.Entry<Integer, JobThread> item : JobThreadRepository.entrySet()) {
+            for (Map.Entry<Long, JobThread> item : JobThreadRepository.entrySet()) {
                 removeJobThread(item.getKey(), "Web容器销毁终止");
             }
             JobThreadRepository.clear();

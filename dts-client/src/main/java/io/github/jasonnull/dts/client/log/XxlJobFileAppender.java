@@ -66,7 +66,7 @@ public class XxlJobFileAppender {
      * @param logId
      * @return
      */
-    public static String makeLogFileName(Date triggerDate, int logId) {
+    public static String makeLogFileName(Date triggerDate, Long logId) {
 
         // filePath/yyyy-MM-dd
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");    // avoid concurrent problem, can not be static

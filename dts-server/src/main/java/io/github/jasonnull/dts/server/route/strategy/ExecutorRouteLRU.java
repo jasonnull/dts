@@ -17,10 +17,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ExecutorRouteLRU extends ExecutorRouter {
 
-    private static ConcurrentHashMap<Integer, LinkedHashMap<String, String>> jobLRUMap = new ConcurrentHashMap<Integer, LinkedHashMap<String, String>>();
+    private static ConcurrentHashMap<Long, LinkedHashMap<String, String>> jobLRUMap = new ConcurrentHashMap<Long, LinkedHashMap<String, String>>();
     private static long CACHE_VALID_TIME = 0;
 
-    public String route(int jobId, ArrayList<String> addressList) {
+    public String route(Long jobId, ArrayList<String> addressList) {
 
         // cache clear
         if (System.currentTimeMillis() > CACHE_VALID_TIME) {

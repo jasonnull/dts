@@ -19,19 +19,19 @@ public class JobInfoDaoTest {
 
     @Test
     public void pageList() {
-        List<JobInfo> list = jobInfoDao.pageList(0, 20, 0, null, null);
-        int list_count = jobInfoDao.pageListCount(0, 20, 0, null, null);
+        List<JobInfo> list = jobInfoDao.pageList(0, 20, 0L, null, null);
+        int list_count = jobInfoDao.pageListCount(0, 20, 0L, null, null);
 
         System.out.println(list);
         System.out.println(list_count);
 
-        List<JobInfo> list2 = jobInfoDao.getJobsByGroup(1);
+        List<JobInfo> list2 = jobInfoDao.getJobsByGroup(1L);
     }
 
     @Test
     public void save_load() {
         JobInfo info = new JobInfo();
-        info.setJobGroup(1);
+        info.setJobGroup(1L);
         info.setJobCron("jobCron");
         info.setJobDesc("desc");
         info.setAuthor("setAuthor");
@@ -48,7 +48,7 @@ public class JobInfoDaoTest {
 
         int count = jobInfoDao.save(info);
 
-        JobInfo info2 = jobInfoDao.loadById(info.getId());
+        JobInfo info2 = jobInfoDao.loadById(info.getJobId());
         info2.setJobCron("jobCron2");
         info2.setJobDesc("desc2");
         info2.setAuthor("setAuthor2");
@@ -66,9 +66,9 @@ public class JobInfoDaoTest {
 
         int item2 = jobInfoDao.update(info2);
 
-        jobInfoDao.delete(info2.getId());
+        jobInfoDao.delete(info2.getJobId());
 
-        List<JobInfo> list2 = jobInfoDao.getJobsByGroup(1);
+        List<JobInfo> list2 = jobInfoDao.getJobsByGroup(1L);
 
         int ret3 = jobInfoDao.findAllCount();
 

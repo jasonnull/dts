@@ -97,7 +97,7 @@ public class JobGroupController {
 
     @RequestMapping("/remove")
     @ResponseBody
-    public ReturnT<String> remove(int id) {
+    public ReturnT<String> remove(Long id) {
 
         // valid
         int count = jobInfoDao.pageListCount(0, 10, id, null, null);

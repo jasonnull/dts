@@ -33,7 +33,7 @@
                                 paramVal="<#if jobInfo?exists>${jobInfo.jobGroup}</#if>">
                             <option value="0">${I18n.system_all}</option>
                             <#list JobGroupList as group>
-                                <option value="${group.id}">${group.title}</option>
+                                <option value="${group.jobGroup}">${group.title}</option>
                             </#list>
                         </select>
                     </div>
@@ -41,7 +41,7 @@
                 <div class="col-xs-2">
                     <div class="input-group">
                         <span class="input-group-addon">${I18n.jobinfo_job}</span>
-                        <select class="form-control" id="jobId" paramVal="<#if jobInfo?exists>${jobInfo.id}</#if>">
+                        <select class="form-control" id="jobId" paramVal="<#if jobInfo?exists>${jobInfo.jobId}</#if>">
                             <option value="0">${I18n.system_all}</option>
                         </select>
                     </div>

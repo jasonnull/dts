@@ -20,7 +20,7 @@ public interface ExecutorBiz {
      * @param jobId
      * @return
      */
-    public ReturnT<String> idleBeat(int jobId);
+    public ReturnT<String> idleBeat(Long jobId);
 
     /**
      * kill
@@ -28,7 +28,7 @@ public interface ExecutorBiz {
      * @param jobId
      * @return
      */
-    public ReturnT<String> kill(int jobId);
+    public ReturnT<String> kill(Long jobId);
 
     /**
      * log
@@ -38,7 +38,7 @@ public interface ExecutorBiz {
      * @param fromLineNum
      * @return
      */
-    public ReturnT<LogResult> log(long logDateTim, int logId, int fromLineNum);
+    public ReturnT<LogResult> log(long logDateTim, Long logId, int fromLineNum);
 
     /**
      * run

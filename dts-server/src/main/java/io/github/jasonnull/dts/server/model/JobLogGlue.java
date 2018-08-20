@@ -1,72 +1,41 @@
 package io.github.jasonnull.dts.server.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.github.jasonnull.dts.server.conf.JacksonModel;
+import lombok.Data;
+import org.apache.ibatis.type.Alias;
+
 /**
  * xxl-job log for glue, used to track job code process
  */
+@Alias("JobLogGlue")
+@Data
 public class JobLogGlue {
+    @JsonSerialize(using = JacksonModel.LongJsonSerializer.class)
+    @JsonDeserialize(using = JacksonModel.LongJsonDeserializer.class)
+    private Long id;
 
-    private int id;
-    private int jobId;                // 任务主键ID
-    private String glueType;        // GLUE类型    #io.github.jasonnull.dts.client.glue.GlueTypeEnum
+    @JsonSerialize(using = JacksonModel.LongJsonSerializer.class)
+    @JsonDeserialize(using = JacksonModel.LongJsonDeserializer.class)
+    /**
+     *     任务主键ID
+      */
+    private Long jobId;
+
+    @JsonSerialize(using = JacksonModel.LongJsonSerializer.class)
+    @JsonDeserialize(using = JacksonModel.LongJsonDeserializer.class)
+    /**
+     * 执行器主键ID    (JobKey.group)
+     */
+    private Long jobGroup;
+
+    /**
+     * GLUE类型    #io.github.jasonnull.dts.client.glue.GlueTypeEnum
+     */
+    private String glueType;
     private String glueSource;
     private String glueRemark;
     private String addTime;
     private String updateTime;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
-    }
-
-    public String getGlueType() {
-        return glueType;
-    }
-
-    public void setGlueType(String glueType) {
-        this.glueType = glueType;
-    }
-
-    public String getGlueSource() {
-        return glueSource;
-    }
-
-    public void setGlueSource(String glueSource) {
-        this.glueSource = glueSource;
-    }
-
-    public String getGlueRemark() {
-        return glueRemark;
-    }
-
-    public void setGlueRemark(String glueRemark) {
-        this.glueRemark = glueRemark;
-    }
-
-    public String getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(String addTime) {
-        this.addTime = addTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
 }

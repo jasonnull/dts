@@ -12,10 +12,10 @@ public interface JobLogGlueDao {
 
     public int save(JobLogGlue jobLogGlue);
 
-    public List<JobLogGlue> findByJobId(@Param("jobId") int jobId);
+    public List<JobLogGlue> findByJobId(@Param("jobId") Long jobId);
 
-    public int removeOld(@Param("jobId") int jobId, @Param("limit") int limit);
+    public int removeOld(@Param("jobId") Long jobId, @Param("limit") int limit);
 
-    public int deleteByJobId(@Param("jobId") int jobId);
+    public int deleteByJobId(@Param("jobId") Long jobId);
 
 }
