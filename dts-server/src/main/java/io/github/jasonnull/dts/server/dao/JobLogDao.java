@@ -12,21 +12,21 @@ import java.util.Map;
  */
 public interface JobLogDao {
 
-    public List<JobLog> pageList(@Param("offset") int offset,
-                                 @Param("pagesize") int pagesize,
+    public List<JobLog> pageList(@Param("offset") Integer offset,
+                                 @Param("pagesize") Integer pagesize,
                                  @Param("jobGroup") Long jobGroup,
                                  @Param("jobId") Long jobId,
                                  @Param("triggerTimeStart") Date triggerTimeStart,
                                  @Param("triggerTimeEnd") Date triggerTimeEnd,
-                                 @Param("logStatus") int logStatus);
+                                 @Param("logStatus") Integer logStatus);
 
-    public int pageListCount(@Param("offset") int offset,
-                             @Param("pagesize") int pagesize,
+    public Integer pageListCount(@Param("offset") Integer offset,
+                             @Param("pagesize") Integer pagesize,
                              @Param("jobGroup") Long jobGroup,
                              @Param("jobId") Long jobId,
                              @Param("triggerTimeStart") Date triggerTimeStart,
                              @Param("triggerTimeEnd") Date triggerTimeEnd,
-                             @Param("logStatus") int logStatus);
+                             @Param("logStatus") Integer logStatus);
 
     public JobLog load(@Param("id") Long id);
 
@@ -38,7 +38,7 @@ public interface JobLogDao {
 
     public int delete(@Param("jobId") Long jobId);
 
-    public int triggerCountByHandleCode(@Param("handleCode") int handleCode);
+    public Integer triggerCountByHandleCode(@Param("handleCode") Integer handleCode);
 
     public List<Map<String, Object>> triggerCountByDay(@Param("from") Date from,
                                                        @Param("to") Date to);
@@ -46,6 +46,6 @@ public interface JobLogDao {
     public int clearLog(@Param("jobGroup") Long jobGroup,
                         @Param("jobId") Long jobId,
                         @Param("clearBeforeTime") Date clearBeforeTime,
-                        @Param("clearBeforeNum") int clearBeforeNum);
+                        @Param("clearBeforeNum") Integer clearBeforeNum);
 
 }

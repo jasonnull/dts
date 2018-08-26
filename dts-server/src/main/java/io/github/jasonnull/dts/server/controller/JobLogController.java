@@ -12,6 +12,8 @@ import io.github.jasonnull.dts.server.model.JobInfo;
 import io.github.jasonnull.dts.server.model.JobLog;
 import io.github.jasonnull.dts.server.schedule.JobDynamicScheduler;
 import io.github.jasonnull.dts.server.util.I18nUtil;
+import io.shardingjdbc.core.api.HintManager;
+import io.shardingjdbc.core.hint.HintManagerHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -72,7 +74,11 @@ public class JobLogController {
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
                                         Long jobGroup, Long jobId, int logStatus, String filterTime) {
-
+//        // 这边可以固定访问哪个库
+//        HintManager hintManager = HintManager.getInstance();
+//        hintManager.addDatabaseShardingValue("xxl_job_qrtz_trigger_log", "job_group", 2L);
+//        hintManager.addTableShardingValue("xxl_job_qrtz_trigger_log", "job_id", 1L);
+//
         // parse param
         Date triggerTimeStart = null;
         Date triggerTimeEnd = null;

@@ -42,10 +42,9 @@ quartz:
 
 sharding:
   datasource:
-      password: 123456
-      name: xxl-job
-      url: jdbc:mysql://localhost:3306
       username: root
+      password: 123456
+      url: jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   jdbc:
     datasource:
       names: xxl-job_0,xxl-job_1,xxl-job_2,xxl-job_3
@@ -115,11 +114,13 @@ sharding:
                 precise-algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSTableShardingAlgorithm
             key-generator-column-name: id
             actual-data-nodes: xxl-job_${0..3}.xxl_job_qrtz_trigger_log_${0..1}
-#        default-database-strategy:
-#          inline:
-#            sharding-column: job_group
-#            algorithm-expression: xxl-job_${job_group % 4}
         default-key-generator-class: io.shardingjdbc.core.keygen.DefaultKeyGenerator
+#        default-database-strategy:
+#          hint:
+#            algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSHintDatasourceShardingAlgorithm
+#        default-table-strategy:
+#          hint:
+#            algorithm-class-name: io.github.jasonnull.dts.server.conf.DTSShardingAlgorithm$DTSHintTableShardingAlgorithm
         props:
           sql:
             show: true

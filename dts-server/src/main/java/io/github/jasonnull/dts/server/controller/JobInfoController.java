@@ -9,6 +9,7 @@ import io.github.jasonnull.dts.server.model.JobGroup;
 import io.github.jasonnull.dts.server.model.JobInfo;
 import io.github.jasonnull.dts.server.route.ExecutorRouteStrategyEnum;
 import io.github.jasonnull.dts.server.service.JobService;
+import io.shardingjdbc.core.api.HintManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,9 @@ public class JobInfoController {
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
                                         Long jobGroup, String jobDesc, String executorHandler, String filterTime) {
+        // 这边可以固定访问哪个库
+//        HintManager hintManager = HintManager.getInstance();
+//        hintManager.setDatabaseShardingValue(2);
 
         return jobService.pageList(start, length, jobGroup, jobDesc, executorHandler, filterTime);
     }
