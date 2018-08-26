@@ -41,6 +41,7 @@ quartz:
   enabled: true
 
 sharding:
+## quartz 原有数据库配置
   datasource:
       username: root
       password: 123456
@@ -50,25 +51,25 @@ sharding:
       names: xxl-job_0,xxl-job_1,xxl-job_2,xxl-job_3
       xxl-job_3:
         password: 123456
-        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_3
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        username: root
-      xxl-job_0:
-        password: 123456
-        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_0
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_3?useUnicode=true&characterEncoding=UTF-8&useSSL=false
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: root
       xxl-job_2:
         password: 123456
-        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_2
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_2?useUnicode=true&characterEncoding=UTF-8&useSSL=false
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: root
       xxl-job_1:
         password: 123456
-        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_1
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+      xxl-job_0:
+        password: 123456
+        jdbcUrl: jdbc:mysql://localhost:3306/xxl-job_0?useUnicode=true&characterEncoding=UTF-8&useSSL=false
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: root
