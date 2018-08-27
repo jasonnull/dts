@@ -34,10 +34,6 @@ public class SchedulerConfig {
         Properties properties = new Properties();
         properties.load(DTSApplication.class.getClassLoader().getResourceAsStream("quartz.properties"));
 
-        // todo fix
-        properties.replace("org.quartz.dataSource.xxl-job.URL", url);
-        properties.replace("org.quartz.dataSource.xxl-job.user", userName);
-        properties.replace("org.quartz.dataSource.xxl-job.password", password);
         schedulerFactoryBean.setQuartzProperties(properties);
         schedulerFactoryBean.setAutoStartup(true);
         schedulerFactoryBean.setStartupDelay(10);
