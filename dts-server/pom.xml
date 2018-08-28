@@ -109,6 +109,10 @@
 
     <build>
         <finalName>dts</finalName>
+        <!-- 指定使用的 filter -->
+        <filters>
+            <filter>src/main/resources/db_${dev.name}.properties</filter>
+        </filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
